@@ -1,7 +1,8 @@
-import RestaurantList from '../../components/RestaurantList'
+import RestaurantList from '../../containers/RestaurantList'
 import Restaurant from '../../models/Restaurant'
 import sushi from '../../assets/images/imagem.png'
 import dolce from '../../assets/images/image 1.png'
+import Header from '../../components/header'
 
 const restaurantes: Restaurant[] = [
   {
@@ -11,7 +12,7 @@ const restaurantes: Restaurant[] = [
     name: 'Hioki Sushi',
     image: sushi,
     category: 'Japonesa',
-    grade: 4.6
+    grade: 4.9
   },
   {
     id: 2,
@@ -62,6 +63,7 @@ const restaurantes: Restaurant[] = [
 
 const Home = () => (
   <>
+    <Header />
     <RestaurantList restaurant={restaurantes} />
   </>
 )

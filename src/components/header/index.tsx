@@ -1,5 +1,3 @@
-import logo from '../../assets/images/logo.png'
-
 import { Imagem, Titulo, Logo } from './styles'
 import logoImg from '../../assets/images/logo.png'
 import bannerImg from '../../assets/images/Vector.png'

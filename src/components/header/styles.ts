@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
 
 export const Imagem = styled.header`
   width: 100%;

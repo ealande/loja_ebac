@@ -1,4 +1,4 @@
-import RestaurantCard from '../RestaurantCard'
+import RestaurantCard from '../../components/RestaurantCard'
 import { Container, List } from './styles'
 import Restaurant from '../../models/Restaurant'
 

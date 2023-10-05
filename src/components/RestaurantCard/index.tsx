@@ -1,5 +1,12 @@
-import Tag from '../Tag'
-import { Card, Descricao, Titulo, SaibaMaisButton, Grades } from './styles'
+import { Tag } from '../Tag'
+import {
+  TagDestaque,
+  Card,
+  Descricao,
+  Titulo,
+  SaibaMaisButton,
+  Grades
+} from './styles'
 import starImage from '../../assets/images/estrela.png'
 
 type Props = {
@@ -9,6 +16,7 @@ type Props = {
   image: string
   grade: number
 }
+
 const RestaurantCard = ({
   name,
   category,
@@ -26,8 +34,9 @@ const RestaurantCard = ({
       </Grades>
     </Titulo>
     <Tag>{category}</Tag>
+    <TagDestaque isVisible={grade > 4.8}>Destaque da Semana</TagDestaque>
     <Descricao>{description}</Descricao>
-    <SaibaMaisButton>Saiba Mais</SaibaMaisButton>
+    <SaibaMaisButton href="/produtos">Saiba Mais</SaibaMaisButton>
   </Card>
 )
 
