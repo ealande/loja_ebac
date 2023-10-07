@@ -1,5 +1,4 @@
 import { ModalContent, ModalWrapper } from './styles'
-import { Props as ProdutosProps } from '../../components/ProdutoCard'
 
 type Props = {
   isOpen: boolean
