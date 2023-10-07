@@ -5,29 +5,25 @@ import {
   RestaurantName,
   RestaurantCategory,
   ImagemBanner,
-  HeaderContainer,
   CartButton,
   RestaurantesLink
 } from './styles'
 import logoImg from '../../assets/images/logo.png'
 import bannerImg from '../../assets/images/Vector.png'
 import bannerRestaurante from '../../assets/images/image 2.png'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { ShoppingCartContext } from '../../context/ShoppingCartContext'
 
 const HeaderProdutos = () => {
-  const [isCartOpen, setCartOpen] = useState(false)
-  const [items, setItems] = useState([])
+  const { openCart, cartQuantity } = useContext(ShoppingCartContext)
 
-  const OpenCart = () => {
-    setCartOpen(true)
-  }
   return (
     <>
       <Imagem style={{ backgroundImage: `url(${bannerImg})` }}>
         <RestaurantesLink href="/">Restaurantes</RestaurantesLink>
         <Logo src={logoImg} />
-        <CartButton onClick={OpenCart}>
-          {items.length} produto(s) no carrinho
+        <CartButton onClick={openCart}>
+          {cartQuantity} produto(s) no carrinho
         </CartButton>
       </Imagem>
       <BannerRestaurante>

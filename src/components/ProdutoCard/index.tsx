@@ -1,19 +1,18 @@
 import { useState } from 'react'
 import { Card, Descricao, Titulo, AdicionarCarrinhoButton } from './styles'
-import Produto from '../../models/Produto'
 import Modal from '../Modal/index'
 import fechar from '../../assets/images/x.png'
+import { useContext } from 'react'
+import { ShoppingCartContext } from '../../context/ShoppingCartContext'
 
 export type Props = {
   id: number
-  name: string
-  description: string
-  image: string
+  name?: string
+  description?: string
+  image?: string
 }
 
-const RestaurantCard = ({ id, name, description, image }: Props) => {
-  const [produtos, setProduto] = useState<Produto[]>([])
-  const [shoppingCart, setCart] = useState<Produto[]>([])
+const ProdutoCard = ({ id, name, description, image }: Props) => {
   const [isModalOpen, setModalOpen] = useState(false)
 
   const handleOpenModal = () => {
@@ -24,14 +23,15 @@ const RestaurantCard = ({ id, name, description, image }: Props) => {
     setModalOpen(false)
   }
 
-  function adicionarAoCarrinho() {
-    const novoProduto = { id, name, description, image }
-    if (shoppingCart.find((item) => item.id === novoProduto.id)) {
-      alert('Item já adicionado.')
-    } else {
-      setCart([...shoppingCart, novoProduto])
-    }
-  }
+  const {
+    increaseCartQuantity,
+    removeFromCart,
+    openCart,
+    closeCart,
+    cartItems,
+    cartQuantity
+  } = useContext(ShoppingCartContext)
+
   return (
     <Card>
       <img src={image} alt={name} />
@@ -50,7 +50,14 @@ const RestaurantCard = ({ id, name, description, image }: Props) => {
         <h2 className="nome">{name}</h2>
         <p className="descricao">{description}</p>
         <img src={image} alt={name} />
-        <button onClick={adicionarAoCarrinho} className="adicionar">
+        <button
+          onClick={() => {
+            openCart()
+            increaseCartQuantity(id)
+            handleCloseModal()
+          }}
+          className="adicionar"
+        >
           Adicionar ao carrinho - R$ 60,90
         </button>
       </Modal>
@@ -58,4 +65,4 @@ const RestaurantCard = ({ id, name, description, image }: Props) => {
   )
 }
 
-export default RestaurantCard
+export default ProdutoCard

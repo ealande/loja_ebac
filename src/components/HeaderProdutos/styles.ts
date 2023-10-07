@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
 
-export const Imagem = styled.header`\
+export const Imagem = styled.header`
   width: 100%;
   height: 186px;
   background-repeat: no-repeat;
