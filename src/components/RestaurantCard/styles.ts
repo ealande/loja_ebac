@@ -42,6 +42,7 @@ export const SaibaMaisButton = styled.a`
   text-decoration: none;
 `
 export const Descricao = styled.p`
+  color: ${cores.pinkColor};
   font-size: 14px;
   line-height: 22px;
   display: block;

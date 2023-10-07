@@ -29,6 +29,7 @@ export const ModalContent = styled.div`
   background-color: ${cores.pinkColor};
   position: absolute;
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
 
   .fechar {
@@ -53,10 +54,11 @@ export const ModalContent = styled.div`
     color: ${cores.pinkColor};
     font-size: 14px;
     font-weight: 700;
-    width: 204px;
-    height: 16px;
+    width: 218px;
+    height: 24px;
     cursor: pointer;
     border: none;
+    margin-top: 100px;
   }
   .nome {
     font-weight: 900;
@@ -66,5 +68,7 @@ export const ModalContent = styled.div`
     font-size: 14px;
     font-weight: 400;
     text-align: justify;
+    margin-top: 60px;
+    margin-right: 40px;
   }
 `
