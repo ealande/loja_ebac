@@ -6,21 +6,20 @@ export type Props = {
   restaurant: Restaurant[]
 }
 const RestaurantList = ({ restaurant }: Props) => (
-  <Container>
-    <div className="container">
-      <List>
-        {restaurant.map((restaurant) => (
+  <Container className="container">
+    <List>
+      {restaurant.map((restaurant) => (
+        <li key={restaurant.id}>
           <RestaurantCard
-            key={restaurant.id}
             name={restaurant.name}
             category={restaurant.category}
             description={restaurant.description}
             image={restaurant.image}
             grade={restaurant.grade}
           />
-        ))}
-      </List>
-    </div>
+        </li>
+      ))}
+    </List>
   </Container>
 )
 

@@ -11,7 +11,6 @@ export const Card = styled.div`
   position: relative;
   border-style: solid;
   border-width: 1px;
-  justify-content: space-between;
   width: 472px;
   height: 398px;
 
