@@ -1,25 +1,28 @@
 class Restaurant {
-  name: string
-  description: string
-  image: string
   id: number
-  category: string
-  grade: number
+  photo: string
+  name: string
+  score: string
+  description: string
+  infos: string[]
+  profile: string
 
   constructor(
-    name: string,
     id: number,
+    photo: string,
+    name: string,
+    score: string,
     description: string,
-    image: string,
-    category: string,
-    grade: number
+    infos: string[],
+    profile: string
   ) {
-    this.name = name
-    this.description = description
-    this.image = image
     this.id = id
-    this.category = category
-    this.grade = grade
+    this.photo = photo
+    this.name = name
+    this.score = score
+    this.description = description
+    this.infos = infos
+    this.profile = profile
   }
 }
 

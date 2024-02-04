@@ -11,9 +11,14 @@ export const Card = styled.div`
   position: relative;
   border-style: solid;
   border-width: 1px;
-  width: 472px;
-  height: 398px;
+  max-width: 480px;
+  width: 100%;
 
+  > img {
+    width: 100%;
+    height: 240px;
+    max-height: 100%;
+  }
   ${TagContainer} {
     margin-right: 8px;
     positon: absolute;

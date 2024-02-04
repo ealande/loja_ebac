@@ -10,8 +10,14 @@ import {
 import starImage from '../../assets/images/estrela.png'
 
 type Props = {
+  id: number
   name: string
   category: string
+  title: string
+  highlighted: boolean
+  kind: string
+  score: number
+  photo: string
   description: string
   image: string
   grade: number
