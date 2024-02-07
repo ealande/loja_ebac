@@ -1,19 +1,21 @@
 import RestaurantList from '../../containers/RestaurantList'
-import Restaurant from '../../models/Restaurant'
-import sushi from '../../assets/images/imagem.png'
-import dolce from '../../assets/images/image 1.png'
 import Header from '../../components/header'
 import { useEffect, useState } from 'react'
 
 export type RestaurantType = {
   id: number
   titulo: string
-  destacado: boolean
-  tipo: string
   avaliacao: number
-  descricao: string
   capa: string
+  tipo: string
+  cardapio: {
+    foto: string
+    nome: string
+    descricao: string
+    preco: number
+  }[]
 }
+
 const Home = () => {
   const [restaurantes, setRestaurantes] = useState<RestaurantType[]>([])
 

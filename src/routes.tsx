@@ -5,7 +5,7 @@ import Produtos from './pages/Produtos/index'
 const Rotas = () => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/produtos" element={<Produtos />} />
+    <Route path="/produtos/:id" element={<Produtos />} />
   </Routes>
 )
 

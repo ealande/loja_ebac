@@ -1,19 +1,17 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Card, Descricao, Titulo, AdicionarCarrinhoButton } from './styles'
 import Modal from '../Modal/index'
 import fechar from '../../assets/images/x.png'
-import { useContext } from 'react'
 import { ShoppingCartContext } from '../../context/ShoppingCartContext'
+import { RestaurantType } from '../../pages/Home'
 
-export type Props = {
-  id: number
-  name?: string
-  description?: string
-  image?: string
+type Props = {
+  cardapio: RestaurantType['cardapio'][0]
 }
 
-const ProdutoCard = ({ id, name, description, image }: Props) => {
+const ProdutoCard = ({ cardapio }: Props) => {
   const [isModalOpen, setModalOpen] = useState(false)
+  const { increaseCartQuantity, openCart } = useContext(ShoppingCartContext)
 
   const handleOpenModal = () => {
     setModalOpen(true)
@@ -23,13 +21,11 @@ const ProdutoCard = ({ id, name, description, image }: Props) => {
     setModalOpen(false)
   }
 
-  const { increaseCartQuantity, openCart } = useContext(ShoppingCartContext)
-
   return (
     <Card>
-      <img src={image} alt={name} />
-      <Titulo>{name}</Titulo>
-      <Descricao>{description}</Descricao>
+      <img src={cardapio.foto} alt={cardapio.nome} />
+      <Titulo>{cardapio.nome}</Titulo>
+      <Descricao>{cardapio.descricao}</Descricao>
       <AdicionarCarrinhoButton onClick={handleOpenModal}>
         Adicionar ao carrinho
       </AdicionarCarrinhoButton>
@@ -39,8 +35,8 @@ const ProdutoCard = ({ id, name, description, image }: Props) => {
           onClick={handleCloseModal}
           alt="Fechar"
           className="fechar"
-        ></img>
-        <img src={image} alt={name} />
+        />
+        <img src={cardapio.foto} alt={cardapio.nome} />
         <div
           style={{
             display: 'flex',
@@ -48,17 +44,17 @@ const ProdutoCard = ({ id, name, description, image }: Props) => {
             marginLeft: '20px'
           }}
         >
-          <h2 className="nome">{name}</h2>
-          <p className="descricao">{description}</p>
+          <h2 className="nome">{cardapio.nome}</h2>
+          <p className="descricao">{cardapio.descricao}</p>
           <button
             onClick={() => {
               openCart()
-              increaseCartQuantity(id)
+              increaseCartQuantity(cardapio.id)
               handleCloseModal()
             }}
             className="adicionar"
           >
-            Adicionar ao carrinho - R$ 60,90
+            Adicionar ao carrinho - R$ {cardapio.preco}
           </button>
         </div>
       </Modal>

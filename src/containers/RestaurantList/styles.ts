@@ -7,11 +7,12 @@ export const Container = styled.section`
 
 export const List = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
+  grid-template-columns: 500px 500px;
+  justify-content: center;
   margin-top: 80px;
   margin-bottom: 120px;
   row-gap: 50px;
+  column-gap: 50px;
 
   @media (max-width: 1030px) {
     grid-template-columns: 1fr;

@@ -1,70 +1,27 @@
 import ProdutoList from '../../containers/ProdutoList'
-import Produtos from '../../models/Produto'
-import pizza from '../../assets/images/image 3.svg'
 import HeaderProdutos from '../../components/HeaderProdutos'
+import { useEffect, useState } from 'react'
+import { RestaurantType } from '../Home'
 
-export const produtos: Produtos[] = [
-  {
-    id: 1,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    name: 'Pizza Marguerita',
-    image: pizza,
-    price: 60.9,
-    quantity: 1
-  },
-  {
-    id: 2,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    name: 'Pizza Marguerita',
-    image: pizza,
-    price: 60.9,
-    quantity: 1
-  },
-  {
-    id: 3,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    name: 'Pizza Marguerita',
-    image: pizza,
-    price: 60.9,
-    quantity: 1
-  },
-  {
-    id: 4,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    name: 'Pizza Marguerita',
-    image: pizza,
-    price: 60.9,
-    quantity: 1
-  },
-  {
-    id: 5,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    name: 'Pizza Marguerita',
-    image: pizza,
-    price: 60.9,
-    quantity: 1
-  },
-  {
-    id: 6,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    name: 'Pizza Marguerita',
-    image: pizza,
-    price: 60.9,
-    quantity: 1
-  }
-]
+const ProdutosPage = () => {
+  const [produtos, setProdutos] = useState<RestaurantType[]>([])
 
-const ProdutosPage = () => (
-  <>
-    <HeaderProdutos />
-    <ProdutoList produto={produtos} />
-  </>
-)
+  useEffect(() => {
+    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('API Response:', data)
+        setProdutos(data)
+      })
+      .catch((error) => console.error('Error:', error))
+  }, [])
+
+  return (
+    <>
+      <HeaderProdutos />
+      <ProdutoList produtos={produtos} />
+    </>
+  )
+}
 
 export default ProdutosPage

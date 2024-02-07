@@ -13,7 +13,7 @@ export const Card = styled.div`
   border-width: 1px;
   max-width: 480px;
   width: 100%;
-
+  height: 420px;
   > img {
     width: 100%;
     height: 240px;
@@ -21,15 +21,15 @@ export const Card = styled.div`
   }
   ${TagContainer} {
     margin-right: 8px;
-    positon: absolute;
+    position: absolute;
   }
 `
 export const Titulo = styled.h3`
   font-weight: bold;
   font-size: 18px;
   display: flex;
-  margin-top: 16px;
-  margin-bottom: 8px;
+  margin-top: 8px;
+  margin-bottom: 2px;
   margin-left: 8px;
   justify-content: space-between;
 `
@@ -37,10 +37,8 @@ export const Titulo = styled.h3`
 export const SaibaMaisButton = styled.a`
   background-color: ${cores.pinkColor};
   color: ${cores.backgroundColor};
-  margin-left: 5px;
+  margin: 8px 5px 8px 5px;
   font-size: 14px;
-  width: 82px;
-  height: 24px;
   padding: 4px 6px;
   text-align: center;
   text-decoration: none;
@@ -50,10 +48,7 @@ export const Descricao = styled.p`
   font-size: 14px;
   line-height: 22px;
   display: block;
-  margin-top: 16px;
-  margin-left: 8px;
-  margin-right: 8px;
-  margin-bottom: 8px;
+  margin: 8px 8px 2px 8px;
   text-align: justify;
 `
 export const Grades = styled.h3`
@@ -63,6 +58,7 @@ export const Grades = styled.h3`
 
   img {
     margin-left: 5px;
+    margin-right: 5px;
     width: 21px;
     height: 21px;
   }

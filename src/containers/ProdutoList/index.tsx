@@ -1,21 +1,24 @@
 import ProdutoCard from '../../components/ProdutoCard'
 import { Container, List } from './styles'
-import Produto from '../../models/Produto'
-
-export type Props = {
-  produto: Produto[]
+import { RestaurantType } from '../../pages/Home'
+import { produtos } from '../../pages/Produtos/index'
+type Props = {
+  produtos: RestaurantType[]
 }
-const ProdutoList = ({ produto }: Props) => (
+
+const ProdutoList = ({ produtos }: Props) => (
   <Container>
     <div className="container">
       <List>
-        {produto.map((produto) => (
+        {produtos.map((produto) => (
           <ProdutoCard
             key={produto.id}
-            id={produto.id}
-            name={produto.name}
-            description={produto.description}
-            image={produto.image}
+            cardapio={{
+              foto: '',
+              nome: '',
+              descricao: '',
+              preco: 0
+            }}
           />
         ))}
       </List>

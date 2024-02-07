@@ -28,7 +28,8 @@ const RestaurantCard = ({
   category,
   description,
   image,
-  grade
+  grade,
+  id
 }: Props) => (
   <Card>
     <img src={image} alt={name} />
@@ -42,7 +43,7 @@ const RestaurantCard = ({
     <Tag>{category}</Tag>
     <TagDestaque isVisible={grade > 4.8}>Destaque da Semana</TagDestaque>
     <Descricao>{description}</Descricao>
-    <SaibaMaisButton href="/produtos">Saiba Mais</SaibaMaisButton>
+    <SaibaMaisButton href={`/produtos/${id}`}>Saiba Mais</SaibaMaisButton>
   </Card>
 )
 
