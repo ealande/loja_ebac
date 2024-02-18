@@ -47,12 +47,14 @@ export const AdicionarCarrinhoButton = styled.a`
 `
 export const Descricao = styled.p`
   font-size: 14px;
-  font-weight: 400px;
+  font-weight: 400;
   line-height: 22px;
-  display: block;
+  max-height: 66px;
+  overflow: hidden;
   margin-left: 8px;
   margin-right: 8px;
   margin-bottom: 8px;
   text-align: justify;
   color: ${cores.backgroundColor};
+  text-overflow: ellipsis;
 `

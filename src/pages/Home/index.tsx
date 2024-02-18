@@ -3,17 +3,23 @@ import Header from '../../components/header'
 import { useEffect, useState } from 'react'
 
 export type RestaurantType = {
+  map(arg0: (item: any, index: any) => JSX.Element): unknown
   id: number
   titulo: string
-  avaliacao: number
-  capa: string
+  destacado: boolean
   tipo: string
-  cardapio: {
-    foto: string
-    nome: string
-    descricao: string
-    preco: number
-  }[]
+  avaliacao: number
+  descricao: string
+  capa: string
+  cardapio: [
+    {
+      foto: string
+      preco: number
+      id: number
+      descricao: string
+      porcao: string
+    }
+  ]
 }
 
 const Home = () => {

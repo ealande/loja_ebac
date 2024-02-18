@@ -1,20 +1,43 @@
 import ProdutoList from '../../containers/ProdutoList'
 import HeaderProdutos from '../../components/HeaderProdutos'
 import { useEffect, useState } from 'react'
-import { RestaurantType } from '../Home'
+import { useParams } from 'react-router-dom'
 
 const ProdutosPage = () => {
-  const [produtos, setProdutos] = useState<RestaurantType[]>([])
+  const [produtos, setProdutos] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const { id } = useParams()
 
   useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('API Response:', data)
-        setProdutos(data)
+    setLoading(true)
+    setError(null)
+
+    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch data')
+        }
+        return res.json()
       })
-      .catch((error) => console.error('Error:', error))
-  }, [])
+      .then((res) => {
+        setProdutos([res])
+      })
+      .catch((error) => {
+        setError(error.message)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [id])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>
+  }
 
   return (
     <>

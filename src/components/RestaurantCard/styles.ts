@@ -14,6 +14,7 @@ export const Card = styled.div`
   max-width: 480px;
   width: 100%;
   height: 420px;
+
   > img {
     width: 100%;
     height: 240px;
