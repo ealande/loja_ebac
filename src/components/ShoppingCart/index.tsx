@@ -8,6 +8,7 @@ import {
   Sidebar,
   Title
 } from './styles'
+import ProdutosPage from '../../pages/Produtos/index'
 import { useContext } from 'react'
 
 type ShoppingCartProps = {
@@ -25,11 +26,6 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   const { removeFromCart, closeCart, cartItems } =
     useContext(ShoppingCartContext)
 
-  const totalFinal = cartItems.reduce((total, cartItem) => {
-    const productItem = produtos.find((i) => i.id === cartItem.id)
-    return total + (productItem?.price || 0)
-  }, 0)
-
   return (
     <CartContainer isOpen={isOpen}>
       <Overlay onClick={closeCart} />
@@ -37,24 +33,12 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
         <div>
           <Title>Carrinho</Title>
         </div>
-        <ul>
-          {cartItems.map((item) => {
-            const productItem = produtos.find((i) => i.id === item.id)
-            return (
-              <CartItem key={item.id}>
-                <img src={productItem?.image} alt={productItem?.name} />
-                <div>
-                  <h3>{productItem?.name}</h3>
-                  <span>{formatCurrency(productItem?.price)}</span>
-                </div>
-                <button onClick={() => removeFromCart(item.id)} />
-              </CartItem>
-            )
-          })}
-        </ul>
-        <Prices>Total {formatCurrency(totalFinal)}</Prices>
+        <ul></ul>
+        <Prices>Total</Prices>
         <Button>Continuar com a entrega</Button>
       </Sidebar>
     </CartContainer>
   )
 }
+
+export default ShoppingCart
