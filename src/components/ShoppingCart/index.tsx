@@ -8,7 +8,6 @@ import {
   Sidebar,
   Title
 } from './styles'
-import { produtos } from '../../pages/Produtos/index'
 import { useContext } from 'react'
 
 type ShoppingCartProps = {
