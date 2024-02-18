@@ -5,13 +5,16 @@ import fechar from '../../assets/images/x.png'
 import { ShoppingCartContext } from '../../context/ShoppingCartContext'
 import { RestaurantType } from '../../pages/Home'
 
-type Props = { cardapio: RestaurantType }
+type Props = { cardapio: RestaurantType[] }
 
 const ProdutoCard = ({ cardapio }: Props) => {
   const [isModalOpen, setModalOpen] = useState(false)
+  const [produtoSelecionado, setProdutoSelecionado] =
+    useState<RestaurantType | null>(null)
   const { increaseCartQuantity, openCart } = useContext(ShoppingCartContext)
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (produto: RestaurantType) => {
+    setProdutoSelecionado(produto)
     setModalOpen(true)
   }
 
@@ -26,40 +29,45 @@ const ProdutoCard = ({ cardapio }: Props) => {
           <img src={item.foto} alt={item.descricao} />
           <Titulo>{item.nome}</Titulo>
           <Descricao>{item.descricao}</Descricao>
-          <AdicionarCarrinhoButton onClick={handleOpenModal}>
+          <AdicionarCarrinhoButton onClick={() => handleOpenModal(item)}>
             Adicionar ao carrinho
           </AdicionarCarrinhoButton>
-          <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        </Card>
+      ))}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        {produtoSelecionado && (
+          <div>
             <img
               src={fechar}
               onClick={handleCloseModal}
               alt="Fechar"
               className="fechar"
             />
-            <img src={item.foto} alt={item.descricao} />
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                marginLeft: '20px'
-              }}
-            >
-              <h2 className="nome">{item.descricao}</h2>
-              <p className="descricao">{item.descricao}</p>
-              <button
-                onClick={() => {
-                  openCart()
-                  increaseCartQuantity(item.id)
-                  handleCloseModal()
-                }}
-                className="adicionar"
-              >
-                Adicionar ao carrinho - R$ {item.preco}
-              </button>
+            <div className="modalContainer">
+              <img
+                src={produtoSelecionado.foto}
+                alt={produtoSelecionado.descricao}
+                className="fotoCardapio"
+              />
+              <div className="textContainer">
+                <h2 className="nome">{produtoSelecionado.nome}</h2>
+                <p className="descricao">{produtoSelecionado.descricao}</p>
+                <p className="porcao">Serve:{produtoSelecionado.porcao}</p>
+                <button
+                  onClick={() => {
+                    openCart()
+                    increaseCartQuantity(produtoSelecionado.id)
+                    handleCloseModal()
+                  }}
+                  className="adicionar"
+                >
+                  Adicionar ao carrinho - R$ {produtoSelecionado.preco}
+                </button>
+              </div>
             </div>
-          </Modal>
-        </Card>
-      ))}
+          </div>
+        )}
+      </Modal>
     </>
   )
 }

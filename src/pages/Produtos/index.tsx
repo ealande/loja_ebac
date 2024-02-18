@@ -2,7 +2,6 @@ import ProdutoList from '../../containers/ProdutoList'
 import HeaderProdutos from '../../components/HeaderProdutos'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import ShoppingCart from '../../components/ShoppingCart' // Import the ShoppingCart component
 
 const ProdutosPage = () => {
   const [produtos, setProdutos] = useState([])

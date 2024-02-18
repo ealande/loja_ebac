@@ -3,7 +3,6 @@ import Header from '../../components/header'
 import { useEffect, useState } from 'react'
 
 export type RestaurantType = {
-  map(arg0: (item: any, index: any) => JSX.Element): unknown
   id: number
   titulo: string
   destacado: boolean

@@ -12,14 +12,15 @@ export const ModalWrapper = styled.div`
   align-items: center;
   z-index: 1;
 
-  &::before{
-    content: "";
+  &::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
+  }
 `
 
 export const ModalContent = styled.div`
@@ -29,8 +30,6 @@ export const ModalContent = styled.div`
   background-color: ${cores.pinkColor};
   position: absolute;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
 
   .fechar {
     width: 16px;
@@ -42,10 +41,35 @@ export const ModalContent = styled.div`
     display: unset;
   }
 
-  img {
+  .modalContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 20px;
+  }
+
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-top: 30px;
+  }
+
+  .fotoCardapio {
     width: 280px;
     height: 280px;
     object-fit: cover;
+    margin-left: 10px;
+    margin-top: 30px;
+  }
+
+  .descricao {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: justify;
+    margin-right: 40px;
+    margin-top: 10px;
   }
 
   .adicionar {
@@ -58,17 +82,18 @@ export const ModalContent = styled.div`
     height: 24px;
     cursor: pointer;
     border: none;
-    margin-top: 100px;
+    margin-top: 10px;
   }
+
   .nome {
     font-weight: 900;
     font-size: 18px;
+    margin-bottom: 10px;
   }
-  .descricao {
+
+  .porcao {
     font-size: 14px;
     font-weight: 400;
-    text-align: justify;
-    margin-top: 60px;
-    margin-right: 40px;
+    margin-bottom: 10px;
   }
 `
