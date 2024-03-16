@@ -1,75 +1,113 @@
-import { useState, useContext } from 'react'
-import { Card, Descricao, Titulo, AdicionarCarrinhoButton } from './styles'
-import Modal from '../Modal/index'
-import fechar from '../../assets/images/x.png'
-import { ShoppingCartContext } from '../../context/ShoppingCartContext'
-import { RestaurantType } from '../../pages/Home'
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
 
-type Props = { cardapio: RestaurantType[] }
+import {
+  DadosRestaurante,
+  MenuItem,
+  getDescription
+} from '../../components/RestaurantCard'
+import Product from '../../components/Product'
+import { Close, List, Modal, ModalContainer, ModalContent } from './styles'
 
-const ProdutoCard = ({ cardapio }: Props) => {
-  const [isModalOpen, setModalOpen] = useState(false)
-  const [produtoSelecionado, setProdutoSelecionado] =
-    useState<RestaurantType | null>(null)
-  const { increaseCartQuantity, openCart } = useContext(ShoppingCartContext)
+import closeIcon from '../../assets/images/x.png'
+import { useDispatch } from 'react-redux'
+import { add, open, close } from '../../store/reducers/cart'
+import { formataPreco } from '../../components/ShoppingCart'
 
-  const handleOpenModal = (produto: RestaurantType) => {
-    setProdutoSelecionado(produto)
-    setModalOpen(true)
+type ModalState = {
+  isVisible: boolean
+}
+
+const ProductList = () => {
+  const { id } = useParams()
+
+  const [currentRest, setCurrentRest] = useState<DadosRestaurante>()
+  const [modal, setModal] = useState<ModalState>({
+    isVisible: false
+  })
+  const [selectedProduct, setSelectedProduct] = useState<MenuItem>()
+
+  const dispatch = useDispatch()
+
+  const addToCart = () => {
+    dispatch(add(selectedProduct!))
+    dispatch(open())
+    setModal({
+      isVisible: false
+    })
   }
 
-  const handleCloseModal = () => {
-    setModalOpen(false)
+  useEffect(() => {
+    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
+      .then((res) => res.json())
+      .then((res) => setCurrentRest(res))
+  }, [id])
+
+  if (!currentRest) {
+    return <h3>Carregando...</h3>
+  }
+
+  const openModal = (product: MenuItem) => {
+    setSelectedProduct(product)
+    setModal({
+      isVisible: true
+    })
+    console.log([product])
   }
 
   return (
     <>
-      {cardapio.map((item, index) => (
-        <Card key={index}>
-          <img src={item.foto} alt={item.descricao} />
-          <Titulo>{item.nome}</Titulo>
-          <Descricao>{item.descricao}</Descricao>
-          <AdicionarCarrinhoButton onClick={() => handleOpenModal(item)}>
-            Adicionar ao carrinho
-          </AdicionarCarrinhoButton>
-        </Card>
-      ))}
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        {produtoSelecionado && (
-          <div>
-            <img
-              src={fechar}
-              onClick={handleCloseModal}
-              alt="Fechar"
-              className="fechar"
-            />
-            <div className="modalContainer">
-              <img
-                src={produtoSelecionado.foto}
-                alt={produtoSelecionado.descricao}
-                className="fotoCardapio"
+      <div className="container">
+        <List>
+          {currentRest.cardapio?.map((item) => (
+            <li key={item.id} onClick={() => openModal(item)}>
+              <Product
+                foto={item.foto}
+                nome={item.nome}
+                descricao={getDescription(item.descricao)}
+                id={item.id}
               />
-              <div className="textContainer">
-                <h2 className="nome">{produtoSelecionado.nome}</h2>
-                <p className="descricao">{produtoSelecionado.descricao}</p>
-                <p className="porcao">Serve:{produtoSelecionado.porcao}</p>
-                <button
-                  onClick={() => {
-                    openCart()
-                    increaseCartQuantity(produtoSelecionado.id)
-                    handleCloseModal()
-                  }}
-                  className="adicionar"
-                >
-                  Adicionar ao carrinho - R$ {produtoSelecionado.preco}
+            </li>
+          ))}
+        </List>
+      </div>
+      {selectedProduct && (
+        <Modal className={modal.isVisible ? 'active' : ''}>
+          <ModalContent className="container">
+            <ModalContainer>
+              <img src={selectedProduct.foto} alt="" />
+              <div>
+                <h4>{selectedProduct.nome}</h4>
+
+                <p>{selectedProduct.descricao}</p>
+                <span>{selectedProduct.porcao}</span>
+                <button onClick={addToCart}>
+                  Adicionar ao carrinho {formataPreco(selectedProduct.preco)}
                 </button>
               </div>
-            </div>
-          </div>
-        )}
-      </Modal>
+            </ModalContainer>
+            <Close
+              src={closeIcon}
+              alt="fechar"
+              onClick={() => {
+                setModal({
+                  isVisible: false
+                })
+              }}
+            />
+          </ModalContent>
+          <div
+            className="overlay"
+            onClick={() => {
+              setModal({
+                isVisible: false
+              })
+            }}
+          ></div>
+        </Modal>
+      )}
     </>
   )
 }
 
-export default ProdutoCard
+export default ProductList

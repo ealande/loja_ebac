@@ -1,50 +1,29 @@
+import { useParams } from 'react-router'
+import ProfileHeader from '../../components/HeaderProdutos'
+import Banner from '../../components/RestBanner'
 import ProdutoList from '../../containers/ProdutoList'
-import HeaderProdutos from '../../components/HeaderProdutos'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+
+import { useGetCurrentRestQuery } from '../../services/api'
 
 const ProdutosPage = () => {
-  const [produtos, setProdutos] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const { id } = useParams()
+  const { data: currentRest } = useGetCurrentRestQuery(id!)
 
-  useEffect(() => {
-    setLoading(true)
-    setError(null)
-
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Failed to fetch data')
-        }
-        return res.json()
-      })
-      .then((res) => {
-        setProdutos([res])
-      })
-      .catch((error) => {
-        setError(error.message)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [id])
-
-  if (loading) {
-    return <div>Loading...</div>
+  if (currentRest) {
+    return (
+      <>
+        <ProfileHeader></ProfileHeader>
+        <Banner
+          capa={currentRest.capa}
+          tipo={currentRest.tipo}
+          titulo={currentRest.titulo}
+        ></Banner>
+        <ProdutoList />
+      </>
+    )
   }
 
-  if (error) {
-    return <div>Error: {error}</div>
-  }
-
-  return (
-    <>
-      <HeaderProdutos />
-      <ProdutoList produtos={produtos} />
-    </>
-  )
+  return <h3>Carregando...</h3>
 }
 
 export default ProdutosPage

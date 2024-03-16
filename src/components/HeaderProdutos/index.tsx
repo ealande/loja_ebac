@@ -1,58 +1,32 @@
-import {
-  Imagem,
-  BannerRestaurante,
-  Logo,
-  RestaurantName,
-  RestaurantCategory,
-  ImagemBanner,
-  CartButton,
-  RestaurantesLink
-} from './styles'
-import logoImg from '../../assets/images/logo.png'
-import bannerImg from '../../assets/images/Vector.png'
-import bannerRestaurante from '../../assets/images/image 2.png'
-import { useContext, useEffect, useState } from 'react'
-import { ShoppingCartContext } from '../../context/ShoppingCartContext'
-import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import logo from '../../assets/images/logo.png'
+import { CartButton, Header, HeaderContainer, LinkHome, Logo } from './styles'
+
+import { open } from '../../store/reducers/cart'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
 
 const HeaderProdutos = () => {
-  const { id } = useParams()
-  const { openCart, cartQuantity } = useContext(ShoppingCartContext)
-  const [restaurantData, setRestaurantData] = useState({
-    name: '',
-    category: '',
-    capa: ''
-  })
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setRestaurantData({
-          name: data.titulo,
-          category: data.tipo,
-          capa: data.capa
-        })
-      })
-  }, [id])
+  const OpenCart = () => {
+    dispatch(open())
+  }
+
+  const { items } = useSelector((state: RootReducer) => state.cart)
 
   return (
-    <>
-      <Imagem style={{ backgroundImage: `url(${bannerImg})` }}>
-        <RestaurantesLink href="/">Restaurantes</RestaurantesLink>
-        <Logo src={logoImg} />
-        <CartButton onClick={openCart}>
-          {cartQuantity} produto(s) no carrinho
+    <Header>
+      <HeaderContainer className="container">
+        <Link to="/">
+          <LinkHome>Restaurantes</LinkHome>
+        </Link>
+        <Logo src={logo}></Logo>
+        <CartButton onClick={OpenCart}>
+          {items.length} produto(s) no carrinho
         </CartButton>
-      </Imagem>
-      <BannerRestaurante>
-        <ImagemBanner>
-          <img src={restaurantData.capa} alt="Capa do restaurante" />
-        </ImagemBanner>
-        <RestaurantName>{restaurantData.name}</RestaurantName>
-        <RestaurantCategory>{restaurantData.category}</RestaurantCategory>
-      </BannerRestaurante>
-    </>
+      </HeaderContainer>
+    </Header>
   )
 }
 

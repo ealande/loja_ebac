@@ -9,40 +9,54 @@ import {
 } from './styles'
 import starImage from '../../assets/images/estrela.png'
 
-type Props = {
+export interface MenuItem {
+  foto: string
+  preco: number
   id: number
-  name: string
-  category: string
-  title: string
-  highlighted: boolean
-  kind: string
-  score: number
-  photo: string
-  description: string
-  image: string
-  grade: number
+  nome: string
+  descricao: string
+  porcao: string
+}
+
+export type DadosRestaurante = {
+  id: number
+  titulo: string
+  destacado?: boolean
+  tipo: string
+  avaliacao: number
+  descricao: string
+  capa: string
+  cardapio?: MenuItem[]
+}
+
+export const getDescription = (descricao: string) => {
+  if (descricao.length > 120) {
+    return descricao.slice(0, 127) + '...'
+  }
+
+  return descricao
 }
 
 const RestaurantCard = ({
-  name,
-  category,
-  description,
-  image,
-  grade,
+  titulo,
+  tipo,
+  descricao,
+  avaliacao,
+  capa,
   id
-}: Props) => (
+}: DadosRestaurante) => (
   <Card>
-    <img src={image} alt={name} />
+    <img src={capa} alt="foto" />
     <Titulo>
-      {name}
+      {titulo}
       <Grades>
-        {grade}
+        {avaliacao}
         <img src={starImage} alt="star" />
       </Grades>
     </Titulo>
-    <Tag>{category}</Tag>
-    <TagDestaque isVisible={grade > 4.8}>Destaque da Semana</TagDestaque>
-    <Descricao>{description}</Descricao>
+    <Tag>{tipo}</Tag>
+    <TagDestaque isVisible={avaliacao > 4.8}>Destaque da Semana</TagDestaque>
+    <Descricao>{descricao}</Descricao>
     <SaibaMaisButton href={`/produtos/${id}`}>Saiba Mais</SaibaMaisButton>
   </Card>
 )

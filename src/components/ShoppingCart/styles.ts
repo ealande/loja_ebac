@@ -13,7 +13,7 @@ export const Overlay = styled.div`
   opacity: 0.7;
 `
 
-export const CartContainer = styled.div<{ isOpen: boolean }>`
+export const CartContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -22,7 +22,9 @@ export const CartContainer = styled.div<{ isOpen: boolean }>`
   display: none;
   justify-content: flex-end;
   z-index: 1;
-  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
+
+  &.is-open {
+    display: flex;
   }
 `
 
@@ -32,19 +34,22 @@ export const Sidebar = styled.aside`
   max-width: 360px;
   width: 100%;
   padding: 40px 16px 0 16px;
+
+  &.is-closed {
+    display: none;
   }
 
   label {
     font-weight: 700;
     font-size: 14px;
     line-height: 16px;
-    color: ${cores.backgroundColor};
+    color: ${cores.footerBackground};
     display: block;
     margin-bottom: 8px;
   }
 
   input {
-    background-color: ${cores.backgroundColor};
+    background-color: ${cores.footerBackground};
     height: 32px;
     padding: 8px;
     border: none;
@@ -65,7 +70,7 @@ export const Sidebar = styled.aside`
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
-    color: ${cores.backgroundColor};
+    color: ${cores.footerBackground};
     margin-bottom: 16px;
   }
 `
@@ -73,7 +78,7 @@ export const Title = styled.h3`
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
-  color: ${cores.backgroundColor};
+  color: ${cores.footerBackground};
   margin-bottom: 16px;
 `
 
@@ -89,7 +94,7 @@ export const InputGroup = styled.div`
 export const Prices = styled.p`
   font-weight: bold;
   font-size: 14px;
-  color: #ffffff;
+  color: ${cores.backgroundColor};
   margin-bottom: 24px;
   margin-top: 16px;
   margin-top: 40px;
@@ -97,16 +102,16 @@ export const Prices = styled.p`
   justify-content: space-between;
 
   span {
-    color: #ffffff;
+    color: ${cores.backgroundColor};
   }
 `
 export const CartItem = styled.li`
   display: flex;
   gap: 16px;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid ${cores.backgroundColor};
   padding: 8px;
   position: relative;
-  background-color: ${cores.backgroundColor};
+  background-color: ${cores.footerBackground};
   margin: 8px 0;
 
   img {
@@ -142,7 +147,7 @@ export const Button = styled.button`
   width: 100%;
   padding: 4px;
   border: none;
-  background-color: ${cores.backgroundColor};
+  background-color: ${cores.footerBackground};
   color: ${cores.pinkColor};
   font-weight: bold;
   font-size: 14px;

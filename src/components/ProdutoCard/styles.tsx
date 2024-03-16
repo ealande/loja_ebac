@@ -1,60 +1,90 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
 
-export const Card = styled.div`
-  background-color: ${cores.pinkColor};
-  position: relative;
-  border-style: solid;
-  border-width: 1px;
-  width: 320px;
-  height: 338px;
-
-  img{
-  width: 304px;
-  height: 167px;
-  margin-left: 8px;  margin-top: 16px;
-
-  margin-top: 8px;
-  margin-right: 8px;
-  }
-  }
+export const List = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  row-gap: 32px;
+  column-gap: 32px;
+  margin-bottom: 120px;
 `
-export const Titulo = styled.h3`
-  font-weight: 900;
-  font-size: 16px;
-  display: flex;
-  margin-bottom: 8px;
-  margin-left: 8px;
-  justify-content: space-between;
-  color: ${cores.backgroundColor};
-`
-
-export const AdicionarCarrinhoButton = styled.a`
-  display: flex;
-  text-align: center;
-  text-decoration: none;
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
   justify-content: center;
   align-items: center;
-  background-color: ${cores.backgroundColor};
-  color: ${cores.pinkColor};
-  font-size: 14px;
-  font-weight: 700;
-  height: 24px;
-  margin-left: 8px;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  cursor: pointer;
+  z-index: 1;
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.83);
+    z-index: -1;
+  }
+
+  &.active {
+    display: flex;
+  }
 `
-export const Descricao = styled.p`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 22px;
-  max-height: 66px;
-  overflow: hidden;
-  margin-left: 8px;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  text-align: justify;
+
+export const ModalContent = styled.div`
+  width: 1024px;
+  height: 344px;
+  background-color: ${cores.pinkColor};
+  padding: 32px;
   color: ${cores.backgroundColor};
-  text-overflow: ellipsis;
+  position: relative;
+`
+export const ModalContainer = styled.div`
+  display: flex;
+  gap: 24px;
+
+  > img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+  }
+
+  div h4 {
+    font-size: 18px;
+    color: ${cores.backgroundColor};
+    margin-bottom: 16px;
+  }
+
+  div p,
+  div span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: ${cores.backgroundColor};
+    margin-bottom: 16px;
+  }
+
+  div button {
+    padding: 4px 7px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    margin-top: 16px;
+  }
+`
+
+export const Close = styled.img`
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 `

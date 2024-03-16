@@ -1,20 +1,21 @@
+import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { GlobalCss } from './styles'
 import Rotas from './routes'
 import Footer from './components/Footer'
-import { ShoppingCartProvider } from './context/ShoppingCartContext'
+import { store } from './store'
+import ShoppingCart from './components/ShoppingCart'
 
 function App() {
   return (
-    <>
-      <ShoppingCartProvider>
-        <BrowserRouter>
-          <GlobalCss />
-          <Rotas />
-          <Footer />
-        </BrowserRouter>
-      </ShoppingCartProvider>
-    </>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalCss />
+        <Rotas />
+        <Footer />
+        <ShoppingCart />
+      </BrowserRouter>
+    </Provider>
   )
 }
 
