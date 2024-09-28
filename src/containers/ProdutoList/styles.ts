@@ -8,7 +8,16 @@ export const List = styled.ul`
   row-gap: 32px;
   column-gap: 32px;
   margin-bottom: 120px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `
+
 export const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -42,7 +51,18 @@ export const ModalContent = styled.div`
   padding: 32px;
   color: ${cores.backgroundColor};
   position: relative;
+
+  @media (max-width: 1024px) {
+    width: 768px;
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 16px;
+  }
 `
+
 export const ModalContainer = styled.div`
   display: flex;
   gap: 24px;
@@ -80,6 +100,24 @@ export const ModalContainer = styled.div`
     margin-top: 16px;
     color: ${cores.pinkColor};
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+
+    > img {
+      width: 100%;
+      height: auto;
+    }
+
+    div h4 {
+      text-align: center;
+    }
+
+    div button {
+      width: 100%;
+    }
+  }
 `
 
 export const Close = styled.img`
@@ -88,4 +126,9 @@ export const Close = styled.img`
   position: absolute;
   top: 8px;
   right: 8px;
+
+  @media (max-width: 768px) {
+    top: 4px;
+    right: 4px;
+  }
 `
